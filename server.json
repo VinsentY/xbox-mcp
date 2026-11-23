@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.VinsentY/xbox-mcp",
+  "title": "Xbox Live MCP",
+  "description": "Local MCP server for official Xbox Live APIs: playtime, Game Pass, achievements, and friends.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/VinsentY/xbox-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "xbox-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "XBOX_LANGUAGE",
+          "description": "Optional Accept-Language locale for titles and achievements (e.g., en-US, zh-CN).",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "XBOX_TOKENS_FILE",
+          "description": "Optional custom path to store local Microsoft OAuth2 tokens.",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

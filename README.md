@@ -1,3 +1,5 @@
+<!-- mcp-name: io.github.VinsentY/xbox-mcp -->
+
 # xbox-mcp
 
 [English](README.md) | [简体中文](README.zh-CN.md)
@@ -32,12 +34,23 @@ Query your **Xbox console & PC Game Pass** game library, exact `MinutesPlayed` p
 
 ## Quick Start
 
-### 1. Clone & Install
+### 1. Run via `uvx` (Recommended — No Clone Needed)
+
+```bash
+# Authenticate once with Microsoft / Xbox Live
+uvx --from xbox-mcp xbox-auth
+
+# Run the MCP server
+uvx xbox-mcp
+```
+
+Or clone locally for development:
 
 ```bash
 git clone https://github.com/VinsentY/xbox-mcp.git
 cd xbox-mcp
 uv sync
+uv run xbox-auth
 ```
 
 ### 2. Authenticate with Microsoft / Xbox Live (One-Time Setup)
@@ -69,7 +82,23 @@ If you prefer not to run a local HTTP listener (or port `8080` is occupied):
 
 ### Antigravity (`~/.gemini/config/mcp_config.json`) / Claude Desktop / Cursor
 
-Using the virtual environment binary directly (recommended for fast startup):
+Using `uvx` (recommended — zero local clone required):
+
+```json
+{
+  "mcpServers": {
+    "xbox": {
+      "command": "uvx",
+      "args": ["xbox-mcp"],
+      "env": {
+        "XBOX_LANGUAGE": "en-US"
+      }
+    }
+  }
+}
+```
+
+Or using a local clone's virtual environment binary:
 
 ```json
 {
@@ -80,19 +109,6 @@ Using the virtual environment binary directly (recommended for fast startup):
       "env": {
         "XBOX_LANGUAGE": "en-US"
       }
-    }
-  }
-}
-```
-
-Or via `uv`:
-
-```json
-{
-  "mcpServers": {
-    "xbox": {
-      "command": "uv",
-      "args": ["--directory", "/absolute/path/to/xbox-mcp", "run", "xbox-mcp"]
     }
   }
 }

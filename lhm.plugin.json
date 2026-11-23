@@ -1,0 +1,524 @@
+{
+  "author": "VinsentY",
+  "authorUrl": "https://github.com/VinsentY",
+  "description": "Local MCP server connecting directly to official Microsoft Xbox Live APIs for Xbox & PC Game Pass playtime, achievements, rarity, presence, and friends.",
+  "homepage": "https://github.com/VinsentY/xbox-mcp",
+  "identifier": "vinsenty-xbox-mcp",
+  "name": "Xbox Live MCP",
+  "prompts": [],
+  "resources": [],
+  "tools": [
+    {
+      "name": "get_auth_status",
+      "description": "Check whether Xbox Live OAuth tokens exist locally and are valid. If not, returns the Microsoft login URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "get_auth_statusArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_auth_statusOutput"
+      }
+    },
+    {
+      "name": "complete_auth",
+      "description": "Complete Microsoft Xbox Live OAuth2 login by exchanging a redirected callback URL (http://localhost:8080/auth/callback?code=...) or raw authorization code and saving tokens locally.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "callback_url_or_code": {
+            "title": "Callback Url Or Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "callback_url_or_code"
+        ],
+        "title": "complete_authArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "complete_authOutput"
+      }
+    },
+    {
+      "name": "get_profile",
+      "description": "Get Xbox Live profile information (Gamertag, Gamerscore, Account Tier, Tenure, Bio, Location). Defaults to the authenticated user.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          }
+        },
+        "title": "get_profileArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_profileOutput"
+      }
+    },
+    {
+      "name": "get_presence",
+      "description": "Get Xbox Live online status and currently playing game/device (Xbox console, PC, Cloud). Defaults to the authenticated user.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          }
+        },
+        "title": "get_presenceArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_presenceOutput"
+      }
+    },
+    {
+      "name": "get_game_library",
+      "description": "Get full Xbox / PC Game Pass game history enriched with exact MinutesPlayed playtime and achievement stats. Set `exclude_win32_footprints=True` to hide third-party Win32 PC games detected by Windows Game Bar.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          },
+          "sort_by": {
+            "default": "playtime",
+            "enum": [
+              "playtime",
+              "recent",
+              "achievements",
+              "name"
+            ],
+            "title": "Sort By",
+            "type": "string"
+          },
+          "platform": {
+            "default": "all",
+            "enum": [
+              "all",
+              "xbox",
+              "pc"
+            ],
+            "title": "Platform",
+            "type": "string"
+          },
+          "game_pass_only": {
+            "default": false,
+            "title": "Game Pass Only",
+            "type": "boolean"
+          },
+          "tracked_only": {
+            "default": false,
+            "title": "Tracked Only",
+            "type": "boolean"
+          },
+          "exclude_win32_footprints": {
+            "default": false,
+            "title": "Exclude Win32 Footprints",
+            "type": "boolean"
+          },
+          "games_only": {
+            "default": true,
+            "title": "Games Only",
+            "type": "boolean"
+          },
+          "include_detail": {
+            "default": false,
+            "title": "Include Detail",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 100,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "get_game_libraryArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_game_libraryOutput"
+      }
+    },
+    {
+      "name": "get_recently_played",
+      "description": "Get the most recently played Xbox / PC Game Pass games with exact playtime, last played timestamp, and achievement progress.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          },
+          "exclude_win32_footprints": {
+            "default": false,
+            "title": "Exclude Win32 Footprints",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "get_recently_playedArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_recently_playedOutput"
+      }
+    },
+    {
+      "name": "get_playtime_summary",
+      "description": "Compute an aggregate playtime, platform split (Xbox console vs PC), Game Pass share, gamerscore, Win32 footprint count, and top games summary across the entire Xbox library.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          }
+        },
+        "title": "get_playtime_summaryArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_playtime_summaryOutput"
+      }
+    },
+    {
+      "name": "get_game_achievements",
+      "description": "Get achievements (unlock status, unlock timestamps, gamerscore, and global rarity percentage) for a specific Xbox title_id.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title_id": {
+            "title": "Title Id",
+            "type": "string"
+          },
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          },
+          "unlocked_only": {
+            "default": false,
+            "title": "Unlocked Only",
+            "type": "boolean"
+          },
+          "sort_by": {
+            "default": "default",
+            "enum": [
+              "default",
+              "rarity",
+              "gamerscore",
+              "unlock_time"
+            ],
+            "title": "Sort By",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title_id"
+        ],
+        "title": "get_game_achievementsArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_game_achievementsOutput"
+      }
+    },
+    {
+      "name": "get_game_stats",
+      "description": "Get MinutesPlayed and Hero stats for a specific Xbox game using either its title_id or scid.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Title Id"
+          },
+          "scid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Scid"
+          },
+          "gamertag": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Gamertag"
+          },
+          "xuid": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Xuid"
+          }
+        },
+        "title": "get_game_statsArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_game_statsOutput"
+      }
+    },
+    {
+      "name": "get_friends_list",
+      "description": "Get the authenticated user's Xbox Live friends list, online status, currently playing games, and gamerscore.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "title": "get_friends_listArguments"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "get_friends_listOutput"
+      }
+    }
+  ],
+  "version": "0.1.0"
+}

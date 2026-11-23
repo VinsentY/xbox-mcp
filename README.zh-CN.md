@@ -32,12 +32,23 @@
 
 ## 快速开始
 
-### 1. 克隆并安装依赖
+### 1. 通过 `uvx` 一行运行（推荐，无需克隆仓库）
+
+```bash
+# 首次登录微软 / Xbox 账号授权
+uvx --from xbox-mcp xbox-auth
+
+# 运行 MCP 服务
+uvx xbox-mcp
+```
+
+或本地克隆开发运行：
 
 ```bash
 git clone https://github.com/VinsentY/xbox-mcp.git
 cd xbox-mcp
 uv sync
+uv run xbox-auth
 ```
 
 ### 2. 完成一次微软 / Xbox 账号登录授权
@@ -69,7 +80,23 @@ uv run xbox-auth
 
 ### Antigravity（`~/.gemini/config/mcp_config.json`）/ Claude Desktop / Cursor
 
-直接指向虚拟环境中的可执行文件（启动最快，推荐）：
+通过 `uvx` 启动（推荐，免克隆、自动拉取 PyPI 包）：
+
+```json
+{
+  "mcpServers": {
+    "xbox": {
+      "command": "uvx",
+      "args": ["xbox-mcp"],
+      "env": {
+        "XBOX_LANGUAGE": "zh-CN"
+      }
+    }
+  }
+}
+```
+
+或使用本地克隆后的虚拟环境可执行文件：
 
 ```json
 {
@@ -80,19 +107,6 @@ uv run xbox-auth
       "env": {
         "XBOX_LANGUAGE": "zh-CN"
       }
-    }
-  }
-}
-```
-
-或通过 `uv` 启动：
-
-```json
-{
-  "mcpServers": {
-    "xbox": {
-      "command": "uv",
-      "args": ["--directory", "/absolute/path/to/xbox-mcp", "run", "xbox-mcp"]
     }
   }
 }

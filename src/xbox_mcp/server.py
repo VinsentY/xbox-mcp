@@ -29,6 +29,13 @@ from .client import (
 
 mcp = MCPServer(
     name="xbox-mcp",
+    title="Xbox Live MCP",
+    version="0.1.0",
+    description=(
+        "Local MCP server connecting directly to official Microsoft Xbox Live APIs "
+        "for Xbox & PC Game Pass playtime, achievements, rarity, presence, and friends."
+    ),
+    website_url="https://github.com/VinsentY/xbox-mcp",
     instructions=(
         "Local MCP Server connecting directly to official Microsoft Xbox Live APIs. "
         "Use `get_auth_status` first if authentication fails, or `complete_auth` with the Microsoft OAuth redirect URL/code."
