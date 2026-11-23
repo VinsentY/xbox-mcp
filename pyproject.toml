@@ -1,0 +1,28 @@
+[project]
+name = "xbox-mcp"
+version = "0.1.0"
+description = "Local MCP Server for official Microsoft Xbox Live APIs (playtime, Game Pass library, achievements, rarity, presence, friends)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "VinsentY" }
+]
+keywords = ["mcp", "xbox", "xbox-live", "game-pass", "gaming", "model-context-protocol"]
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=2.3.0",
+    "xbox-webapi>=2.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/VinsentY/xbox-mcp"
+Repository = "https://github.com/VinsentY/xbox-mcp"
+Issues = "https://github.com/VinsentY/xbox-mcp/issues"
+
+[project.scripts]
+xbox-mcp = "xbox_mcp.server:main"
+xbox-auth = "xbox_mcp.auth:cli_main"
+
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
